@@ -17,12 +17,12 @@ fn main() {
     for index in 0usize..5 {
         // Make a new map
         let mut freqs = HashMap::<char, usize>::new();
-        // For ech word
+        // For each word
         for word in &words {
             // For the desired character in the word
             for c in word.chars().nth(index) {
                 // Increment the correct entry in the map
-                // If there is not entry, add one
+                // If there is no entry, add one
                 let count = freqs.entry(c).or_insert(0);
                 *count += 1;
             }
