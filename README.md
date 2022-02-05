@@ -8,6 +8,8 @@ Clone this repository and run ```cargo run``` or print ```frequencies_colors.txt
 
 # The best words to start with
 
+Note: these rankings do not include word with duplicate letters
+
 ## Going for all greens
 See ```word_ranking_green.txt``` and ```src/ranking_green.rs```
 
