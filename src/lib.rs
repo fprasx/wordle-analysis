@@ -3,6 +3,7 @@ use std::fs::read_to_string;
 pub mod frequencies;
 pub mod ranking_yellow;
 pub mod ranking_green;
+pub mod entropy;
 
 /*
 * Returns an array of hashmaps which contain the letter frequencies for each index
