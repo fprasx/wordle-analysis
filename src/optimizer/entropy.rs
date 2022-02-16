@@ -1,6 +1,6 @@
 use std::convert::From;
+use std::fmt::{Display, Error, Formatter};
 use std::fs;
-use std::fmt::{Formatter, Error, Display};
 use std::ops::{Index, IndexMut};
 
 #[derive(Debug, PartialEq, Eq)]
@@ -43,9 +43,10 @@ impl Display for Word {
     }
 }
 
+#[allow(dead_code)]
 fn main() {
     let buf = fs::read_to_string("wordle_words.txt").expect("Could not read wordle_words.txt!");
-    let words = buf
+    let _words = buf
         .split(" ")
         .map(|x| x.trim_start().trim_end())
         .filter(|x| !x.is_empty())

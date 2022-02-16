@@ -1,5 +1,5 @@
+use super::utilities::{add_color, cfreqs, cfreqs_indices};
 use std::fs::read_to_string;
-use crate::{add_color, cfreqs, cfreqs_indices};
 pub fn main() {
     // Reading in words
     let buf = read_to_string("wordle_words.txt").expect("Could not read wordle_words.txt!");

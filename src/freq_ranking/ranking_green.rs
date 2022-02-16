@@ -1,9 +1,14 @@
-use crate::{cfreqs, flip, is_dedup};
-use std::fs::{read_to_string, OpenOptions};
+use super::utilities::{cfreqs_indices, is_dedup};
 use std::collections::BTreeMap;
+use std::fs::{read_to_string, OpenOptions};
 use std::io::{BufWriter, Write};
-
 pub fn main() {
+    let freqs = cfreqs_indices();
+
+    // If we want all letters to be correct on the first try
+    // We maximize the probability that each letter is correct
+    // This is basically going for all greens
+
     let buf = read_to_string("all_words.txt").expect("Could not read all_words.txt!");
     let all_words = buf
         .split(" ")
@@ -11,16 +16,13 @@ pub fn main() {
         .filter(|x| is_dedup(x))
         .collect::<Vec<&str>>();
 
-    let absolute_freqs_flipped = flip(cfreqs());
     // Add up the frequency for each letter at its spot to get word's score
     let eval_word = |word: &str| {
-        let mut total= 0;
-        for i in 0..5 {
-            // We know the word has 5 characters so we can unwrap
-            let c = word.chars().nth(i).unwrap();
-            total += absolute_freqs_flipped.get(&c).unwrap()
-        }
-        total
+        freqs[0].get(&word.chars().nth(0).unwrap()).unwrap_or(&0)
+            + freqs[1].get(&word.chars().nth(1).unwrap()).unwrap_or(&0)
+            + freqs[2].get(&word.chars().nth(2).unwrap()).unwrap_or(&0)
+            + freqs[3].get(&word.chars().nth(3).unwrap()).unwrap_or(&0)
+            + freqs[4].get(&word.chars().nth(4).unwrap()).unwrap_or(&0)
     };
 
     let mut wmap = BTreeMap::<usize, Vec<&str>>::new();
@@ -41,13 +43,13 @@ pub fn main() {
     // Write the output out
     let dst = OpenOptions::new()
         .write(true)
-        .open("word_ranking_yellow.txt")
-        .expect("Could not open word_ranking_yellow.txt");
+        .open("word_ranking_green.txt")
+        .expect("Could not open word_ranking_green.txt");
     let mut writer = BufWriter::new(dst);
     for (i, (value, word)) in ordered_words.iter().rev().enumerate() {
         writer
             .write(format!("{}: {} ({})\n", i + 1, word, value).as_bytes())
-            .expect("Could not write to word_ranking_yellows.txt");
+            .expect("Could not write to word_ranking_green.txt");
     }
     writer.flush().expect("Could not flush bufwriter");
 }
