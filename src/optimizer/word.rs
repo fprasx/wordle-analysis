@@ -1,10 +1,21 @@
 use std::convert::From;
 use std::fmt::{Display, Error, Formatter};
-use std::fs;
 use std::ops::{Index, IndexMut};
+use std::iter::{Iterator, IntoIterator};
 
 #[derive(Debug, PartialEq, Eq)]
 pub struct Word([char; 5]);
+
+impl Word {
+    fn contains(&self, item: char) -> bool {
+        for i in 0..5 {
+            if self[i] == item {
+                return true;
+            }
+        }
+        return false;
+    }
+}
 
 impl From<String> for Word {
     fn from(s: String) -> Self {
@@ -43,13 +54,29 @@ impl Display for Word {
     }
 }
 
-#[allow(dead_code)]
-fn main() {
-    let buf = fs::read_to_string("wordle_words.txt").expect("Could not read wordle_words.txt!");
-    let _words = buf
-        .split(" ")
-        .map(|x| x.trim_start().trim_end())
-        .filter(|x| !x.is_empty())
-        .map(|x| x.into())
-        .collect::<Vec<Word>>();
+pub struct WordIter {
+    index: usize,
+    data: Word
+}
+
+impl Iterator for WordIter {
+    type Item = char;
+    fn next(&mut self) -> Option<Self::Item> {
+        if self.index < 5 {
+            Some(self.data[self.index])
+        } else {
+            None
+        }
+    }
+}
+
+impl IntoIterator for Word {
+    type Item = char;
+    type IntoIter = WordIter;
+    fn into_iter(self) -> Self::IntoIter {
+        WordIter {
+            index: 0,
+            data: self
+        }
+    }
 }
