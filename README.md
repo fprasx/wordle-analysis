@@ -1,7 +1,9 @@
+# No longer active
+
 # Some analysis of all the wordle words
 
 # Best words using Information Entropy analysis
-Source code found in ```src/optimizer```
+Source code found in ```src/optimizer``` (Far two slow, but fun to write and good learning experience)
 
 ## Output
 No output just yet!

@@ -1,5 +1,5 @@
-use std::fs::read_to_string;
 use std::collections::{BTreeMap, HashMap};
+use std::fs::read_to_string;
 /*
 * Returns an array of hashmaps which contain the letter frequencies for each index
 * The first map contains the frequencies for the first spot, etc.

@@ -1,4 +1,4 @@
-use super::utilities::{flip, is_dedup, cfreqs};
+use super::utilities::{cfreqs, flip, is_dedup};
 use std::collections::BTreeMap;
 use std::fs::{read_to_string, OpenOptions};
 use std::io::{BufWriter, Write};

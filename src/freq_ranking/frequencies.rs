@@ -3,11 +3,7 @@ use std::fs::read_to_string;
 pub fn main() {
     // Reading in words
     let buf = read_to_string("wordle_words.txt").expect("Could not read wordle_words.txt!");
-    let words = buf
-        .split(" ")
-        .map(|x| x.trim_start().trim_end())
-        .filter(|x| !x.is_empty())
-        .collect::<Vec<&str>>();
+    let words = buf.split(" ").collect::<Vec<&str>>();
     let numwordsf32: f32 = words.len() as f32;
     let freqs = cfreqs_indices();
     let absolute_freqs = cfreqs();
