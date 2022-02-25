@@ -1,7 +1,6 @@
 // /**
 //  * How much faster is comparing a integer to 0 than an float?
 //  */
-
 // #[cfg(test)]
 // // These lints are here because some variables are conditionally updated
 // // Normally they would be returned, but this is unnecessary for the benchmark
